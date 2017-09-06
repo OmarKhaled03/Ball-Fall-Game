@@ -1,0 +1,21 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectsScroller : MonoBehaviour {
+
+	public static float speed = 2; // Speed of the rings
+	// Use this for initialization
+	void Start () 
+	{
+
+	}
+
+	void Update()
+	{
+		transform.Translate(Vector2.up * speed * Time.deltaTime);
+	}
+
+	void FixedUpdate() {
+		
+	}
+}
