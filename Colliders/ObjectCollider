@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ObjectCollider : MonoBehaviour {
+
+	public Text score; // Text
+	public static int count; // Score
+	// Use this for initialization
+	void Start () {
+		count = 0; // score is intialized to 0 every turn
+		SetCountText ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+	void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.CompareTag("Ring")) { // Checks for collision between player and ring
+			Application.LoadLevel ("Gameover"); // Loads Gameover screen
+			ObjectsScroller.speed = 2;
+			Spawner.timeToSpawn = 1.25f;
+			Spawner.countdown = Spawner.timeToSpawn;
+		} 
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.CompareTag("Ring")) { // Checks if ring was trigerred by player
+			count++; // Increases score
+
+			if (count % 5 == 0 && count != 0) {
+				ObjectsScroller.speed += .75f;
+				Spawner.timeToSpawn -= 0.1f;
+
+				if (Spawner.timeToSpawn <= 0.5f) {
+					Spawner.timeToSpawn = 0.5f;
+				}
+
+				Spawner.countdown = Spawner.timeToSpawn;
+			}
+
+			SetCountText (); // calls function
+		}
+	}
+
+	void SetCountText() {
+		score.text = count.ToString (); // Score is returned as text
+	}
+}
