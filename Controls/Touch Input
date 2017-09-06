@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TouchInput : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+		
+	}
+
+	// Update is called once per frame
+	void Update () {
+		foreach (Touch touch in Input.touches) { // A loop to check for touches on the two halves of the screen
+			if (touch.position.x < Screen.width / 2) { // Left half
+				transform.Translate (Vector2.left * 5 * Time.deltaTime); // Translates player to the left
+			} else if (touch.position.x > Screen.width / 2) { // Right half
+				transform.Translate (Vector2.right * 5 * Time.deltaTime); // Translates player to the right
+			}
+		}
+
+		if (transform.position.x <= -2.7f)
+			transform.position = new Vector3(-2.7f, transform.position.y, transform.position.z);
+		else if (transform.position.x >=2.7f)
+			transform.position = new Vector3(2.7f, transform.position.y, transform.position.z);
+	}
+}
