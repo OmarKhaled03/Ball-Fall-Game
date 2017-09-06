@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class disableAccelerometer : MonoBehaviour {
+
+
+	GameObject player; // Player gameObject
+	public Text text; // Text: double click to enable tilt
+
+	float timeSecond = 3.5f; // 3.5 seconds
+	// Use this for initialization
+	void Start () {
+		player = GameObject.Find("Player"); // Finds gameObject Player
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		for (var i = 0; i < Input.touchCount; ++i) // Loop to count how many taps(cause: to detect double tap)
+		{
+			if (Input.GetTouch(i).phase == TouchPhase.Began) 
+			{
+				if (Input.GetTouch (i).tapCount == 2) {
+					player.GetComponent<AccelerometerInput> ().enabled = true; // enables accelerometer and disables touch input if user double tapped
+					player.GetComponent<TouchInput> ().enabled = false;
+				}
+			}
+		}
+
+		if(Time.time >= timeSecond) { // Checks if 3.5 seconds passed
+			text.text = ""; // clears text
+		}
+	}
+}
