@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class AccelerometerInput : MonoBehaviour {
+
+	// Use this for initialization
+ 	void Start () {
+
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		transform.Translate (Input.acceleration.x * 0.5f, 0, 0); // Translates player either right or left depending on the device's tilt
+
+		if (transform.position.x <= -2.7f)
+			transform.position = new Vector3(-2.7f, transform.position.y, transform.position.z);
+		else if (transform.position.x >=2.7f)
+			transform.position = new Vector3(2.7f, transform.position.y, transform.position.z);
+	}
+}
